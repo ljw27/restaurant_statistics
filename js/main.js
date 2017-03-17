@@ -13,6 +13,15 @@ $(function() {
 		var state = JSON.parse(localStorage['table_' + id]);
 
 		$("#myModal").modal("show");
+		var documentWidth = window.screen.availWidth;
+		var documentHeight = window.screen.availHeight;
+		if(documentWidth < 960) {
+			documentWidth < documentHeight && (documentHeight = documentWidth);
+			$(".modal-dialog").css({width: documentWidth*0.8,height: documentHeight*0.8});
+		}else {
+			$(".modal-dialog").css({width: 500,height: 260});
+		}
+			letDivCenter(".modal-dialog");
 		$("#myModalLabel").text(id + "桌");
 		$('#personNum input:radio[value="' +  state.personNum +'"]').parent().addClass("active").siblings().removeClass("active");
 		$('#state input:radio[value="' +  state.state +'"]').parent().addClass("active").siblings().removeClass("active");
@@ -66,6 +75,11 @@ $(function() {
 				state.state = 1;
 				localStorage['table_' + window.tableId] = JSON.stringify(state);
 		}else{
+			var state = JSON.parse(localStorage['table_' + window.tableId]);
+			state.state = 1;
+			state.personNum = $('#personNum .active input:radio').val();
+			localStorage['table_' + window.tableId] = JSON.stringify(state);
+			$(".desk[data-id='"+ window.tableId +"']").removeClass('occupy_'+window.num).addClass('empty_'+window.num);
 			$("#myModal").modal("hide");
 		}
 
@@ -82,7 +96,7 @@ $(function() {
 	});
 
 
-	initalState()
+	initalState();
 
 });
 
@@ -191,11 +205,21 @@ function dataExport() {
 }
 
 function SaveAsFile(data,filename,format) {
-    try {
-      var exportContent = "\uFEFF";
-      var b = new Blob([exportContent+data],{type:format});
-      saveAs(b, filename);
-    } catch (e) {
-      console.log(e);
-    }
+  try {
+    var exportContent = "\uFEFF";
+    var b = new Blob([exportContent+data],{type:format});
+    saveAs(b, filename);
+  } catch (e) {
+    console.log(e);
   }
+}
+
+function letDivCenter(divName){
+  var top = ($(window).height() - $(divName).height())/2;
+  var left = ($(window).width() - $(divName).width())/2;
+  var scrollTop = $(document).scrollTop();
+  var scrollLeft = $(document).scrollLeft();
+  console.log("top:"+ top +","+ "left:"+left);
+  console.log("scrollTop:"+scrollTop+","+"scrollLeft"+scrollLeft);
+  $(divName).css( { position : 'absolute', top : scrollTop + top, left : scrollLeft + left,marginTop: 0 ,maxWidth:500,maxHeight:260} );
+}

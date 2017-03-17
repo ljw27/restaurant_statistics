@@ -1,0 +1,23 @@
+{
+  "main": "index.html",
+  "name": "餐桌统计",
+  "description": "demo app of node-webkit",
+  "version": "0.1.0",
+  "keywords": [ "demo", "node-webkit" ],
+  "window": {
+    "title": "node-webkit",
+    "icon": "link.png",
+    "toolbar": true,
+    "frame": false,
+    "width": 1180,
+    "height": 810,
+    "position": "center",
+    "min_width": 800,
+    "min_height": 600,
+    "max_width": 1180,
+    "max_height": 810
+  },
+  "webkit": {
+    "plugin": true
+  }
+}
