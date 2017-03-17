@@ -21,10 +21,12 @@ $(function() {
 		}else {
 			$(".modal-dialog").css({width: 500,height: 260});
 		}
-			letDivCenter(".modal-dialog");
 		$("#myModalLabel").text(id + "桌");
 		$('#personNum input:radio[value="' +  state.personNum +'"]').parent().addClass("active").siblings().removeClass("active");
 		$('#state input:radio[value="' +  state.state +'"]').parent().addClass("active").siblings().removeClass("active");
+		setTimeout(function() {
+			letDivCenter(".modal-dialog");
+		},500);
 
 	})
 	.off("click","#confirm")
@@ -214,12 +216,22 @@ function SaveAsFile(data,filename,format) {
   }
 }
 
-function letDivCenter(divName){
-  var top = ($(window).height() - $(divName).height())/2;
+/*function letDivCenter(divName){
+  var top = ($(window).height() - $(".modal-dialog").height())/2;
   var left = ($(window).width() - $(divName).width())/2;
   var scrollTop = $(document).scrollTop();
   var scrollLeft = $(document).scrollLeft();
   console.log("top:"+ top +","+ "left:"+left);
   console.log("scrollTop:"+scrollTop+","+"scrollLeft"+scrollLeft);
-  $(divName).css( { position : 'absolute', top : scrollTop + top, left : scrollLeft + left,marginTop: 0 ,maxWidth:500,maxHeight:260} );
+  $(divName).css( { position : 'absolute', top : top+scrollTop, left : left+scrollLeft,marginTop: 0 ,maxWidth:500,maxHeight:260} );
+}*/
+
+function letDivCenter(divName){
+  var top = ($("#myModal").height() - $(".modal-dialog").height())/2;
+  var left = ($("#myModal").width() - $(".modal-dialog").width())/2;
+  var scrollTop = $("#myModal").scrollTop();
+  var scrollLeft = $("#myModal").scrollLeft();
+  console.log("top:"+ top +","+ "left:"+left);
+  console.log("scrollTop:"+scrollTop+","+"scrollLeft"+scrollLeft);
+  $(divName).css( { position : 'absolute', top : top+scrollTop, left : left+scrollLeft,marginTop: 0 ,maxWidth:500,maxHeight:260} );
 }
